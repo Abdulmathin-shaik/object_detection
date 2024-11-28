@@ -1,0 +1,68 @@
+{% extends 'defect_app/base.html' %}
+{% load static %}
+
+{% block title %}New Inspection{% endblock %}
+
+{% block content %}
+<div class="inspection-container">
+    <div class="card">
+        <h2>New Inspection</h2>
+        <form id="inspectionForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Inspector Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter inspector name">
+            </div>
+            
+            <div class="form-group">
+                <label for="serial">Product Serial Number</label>
+                <input type="text" id="serial" name="serial" required placeholder="Enter serial number">
+            </div>
+            
+            <div class="form-group">
+                <label for="model">Inspection Model</label>
+                <select id="model" name="model" required>
+                    <option value="">Select a model</option>
+                    <option value="yolov8n">YOLOv8n (Fast)</option>
+                    <option value="yolov8m">YOLOv8m (Balanced)</option>
+                    <option value="yolov8s">YOLOv8s (Accurate)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Image Capture</label>
+                <div class="capture-options">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="image" name="image" accept="image/*">
+                        <label for="image" class="file-input-label">Choose File</label>
+                    </div>
+                    <button type="button" id="webcamButton" class="webcam-btn">Use Webcam</button>
+                </div>
+            </div>
+            
+            <div class="preview-container">
+                <video id="webcam" style="display: none;"></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <img id="preview" style="display: none;">
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <span class="btn-text">Analyze Defects</span>
+                <div class="loader" style="display: none;"></div>
+            </button>
+        </form>
+    </div>
+    
+    <div class="result-container card" style="display: none;">
+        <h2>Inspection Results</h2>
+        <div class="result-image-container">
+            <img id="resultImage">
+        </div>
+        <div id="defectResults" class="defect-list"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'defect_app/js/defect.js' %}"></script>
+{% endblock %}

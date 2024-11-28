@@ -1,0 +1,71 @@
+{% extends 'defect_app/base.html' %}
+{% load static %}
+
+{% block title %}Inspection History{% endblock %}
+
+{% block content %}
+<div class="history-container">
+    <div class="header-section">
+        <h2>Inspection History</h2>
+        <a href="{% url 'inspection_page' %}" class="new-inspection-btn">
+            <i class="fas fa-plus"></i> New Inspection
+        </a>
+    </div>
+
+    {% if inspections %}
+    <div class="table-responsive">
+        <table class="inspection-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date & Time</th>
+                    <th>Inspector</th>
+                    <th>Serial Number</th>
+                    <th>Model</th>
+                    <th>Defects Found</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inspection in inspections %}
+                <tr>
+                    <td>{{ inspection.id }}</td>
+                    <td>{{ inspection.inspection_date|date:"M d, Y H:i" }}</td>
+                    <td>{{ inspection.name }}</td>
+                    <td>{{ inspection.serial_number }}</td>
+                    <td>{{ inspection.model_type }}</td>
+                    <td>
+                        {% for defect_type, count in inspection.defect_results.items %}
+                            <div>{{ defect_type }}: {{ count }}</div>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <button class="view-image-btn" data-image="{{ inspection.image.url }}">
+                            View Image
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Inspection Image">
+        </div>
+    </div>
+    {% else %}
+    <div class="no-data">
+        <p>No inspections found</p>
+        <a href="{% url 'inspection_page' %}" class="new-inspection-btn">Create First Inspection</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'defect_app/js/defect.js' %}"></script>
+{% endblock %}
