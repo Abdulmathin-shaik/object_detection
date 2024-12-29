@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection Landing Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const ObjectDetectionLandingPage = () => {
+            const [email, setEmail] = React.useState('');
+
+            const benefits = [
+                {
+                    icon: <i className="fas fa-dollar-sign text-4xl text-green-400"></i>,
+                    title: "Massive Cost Savings",
+                    description: "Traditional machine vision projects cost $20,000+ per implementation. We offer unlimited detection for just $150/month—a 99% reduction in cost."
+                },
+                {
+                    icon: <i className="fas fa-bolt text-4xl text-yellow-400"></i>,
+                    title: "Boost Efficiency",
+                    description: "Reduce inspection time by 80%. Our AI processes images in seconds, allowing your team to focus on strategic tasks and business growth."
+                },
+                {
+                    icon: <i className="fas fa-shield-alt text-4xl text-blue-400"></i>,
+                    title: "Consistent Quality",
+                    description: "Eliminate human error with 99.5% accuracy. Ensure consistent quality control across all your production lines and processes."
+                }
+            ];
+
+            const smbChallenges = [
+                {
+                    icon: <i className="fas fa-chart-line text-3xl text-purple-400"></i>,
+                    title: "Scale Without Massive Investment",
+                    description: "Machine vision allows small and medium businesses to implement enterprise-level quality control without huge capital expenditure."
+                },
+                {
+                    icon: <i className="fas fa-clock text-3xl text-red-400"></i>,
+                    title: "Instant Scalability",
+                    description: "Quickly adapt your inspection processes as your business grows. Our cloud-based solution scales with your needs in real-time."
+                }
+            ];
+
+            const handleEmailSubmit = (e) => {
+                e.preventDefault();
+                alert(`Thank you! We'll send information to ${email}.`);
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-900 text-white font-sans">
+                    <div className="container mx-auto px-4 py-16">
+                        {/* Hero Section */}
+                        <div className="text-center mb-16">
+                            <h1 className="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                                AI-Powered Inspection for SMBs
+                            </h1>
+                            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                                Enterprise-grade quality control technology made affordable and accessible for small and medium businesses
+                            </p>
+                        </div>
+
+                        {/* Key Benefits */}
+                        <div className="grid md:grid-cols-3 gap-8 mb-16">
+                            {benefits.map((benefit, idx) => (
+                                <div key={idx} className="bg-gray-800 p-6 rounded-xl text-center hover:bg-gray-700 transition-all duration-300">
+                                    <div className="flex justify-center mb-4">
+                                        {benefit.icon}
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+                                    <p className="text-gray-400">{benefit.description}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* SMB Specific Benefits */}
+                        <div className="bg-gray-800 rounded-xl p-8 mb-16">
+                            <h2 className="text-3xl font-bold text-center mb-8">Why Machine Vision Matters for SMBs</h2>
+                            <div className="grid md:grid-cols-2 gap-6">
+                                {smbChallenges.map((challenge, idx) => (
+                                    <div key={idx} className="bg-gray-900 p-6 rounded-xl flex items-start space-x-4">
+                                        <div>{challenge.icon}</div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold mb-2">{challenge.title}</h3>
+                                            <p className="text-gray-400">{challenge.description}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-8 text-center text-gray-400">
+                                <p>Machine vision transforms how SMBs approach quality control, turning a potential weakness into a competitive advantage.</p>
+                            </div>
+                        </div>
+
+                        {/* Pricing Section */}
+                        <div className="bg-gray-800 rounded-xl p-8 max-w-xl mx-auto text-center">
+                            <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                            <div className="text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                                $150/mo
+                            </div>
+                            <p className="text-gray-400 mb-6">
+                                Unlimited object detection and inspection for your entire business
+                            </p>
+                            <div className="text-sm text-gray-500 mb-4">
+                                Compare to $20,000+ per project with traditional machine vision solutions
+                            </div>
+
+                            {/* Email Capture */}
+                            <form onSubmit={handleEmailSubmit} className="flex max-w-md mx-auto">
+                                <input 
+                                    type="email" 
+                                    placeholder="Enter your email" 
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="flex-grow bg-gray-700 p-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
+                                <button 
+                                    type="submit" 
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-r-lg transition-colors"
+                                >
+                                    Get Started
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ObjectDetectionLandingPage />, document.getElementById('root'));
+    </script>
+</body>
+</html> 
