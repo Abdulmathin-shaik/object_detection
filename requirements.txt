@@ -1,0 +1,10 @@
+django
+gunicorn
+ultralytics
+torch
+torchvision
+numpy
+Pillow
+python-dotenv
+psycopg2-binary
+whitenoise
