@@ -1,22 +1,39 @@
 {
-    "builds": [
-      {
-        "src": "defect_finder/wsgi.py",
-        "use": "@vercel/python"
-      },
-      {
-        "src": "static/**",
-        "use": "@vercel/static"
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.9",
+        "maxLambdaSize": "15mb"
       }
-    ],
-    "routes": [
-      {
-        "src": "/static/(.*)",
-        "dest": "/static/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "defect_finder/wsgi.py"
-      }
-    ]
+    },
+    {
+      "src": "defect_finder/wsgi.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "defect_finder/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "defect_finder.settings"
   }
+}
